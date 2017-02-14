@@ -296,38 +296,6 @@ void loop()
          possibly encoder counts.
        /*************************************************************************************/
          switch(run_Step) {
-//          case 1:
-//            Serial.println("Case1");
-//            servo_LeftMotor.writeMicroseconds(1500);
-//            servo_RightMotor.writeMicroseconds(1650);
-//            Serial.println("Turning left");
-//            if (ui_Middle_Line_Tracker_Data < ((ui_Middle_Line_Tracker_Dark - ui_Line_Tracker_Tolerance))&& !(ui_Left_Line_Tracker_Data < (ui_Left_Line_Tracker_Dark - ui_Line_Tracker_Tolerance)) && !(ui_Right_Line_Tracker_Data < (ui_Right_Line_Tracker_Dark - ui_Line_Tracker_Tolerance)))
-//              {
-//                servo_LeftMotor.writeMicroseconds(1500);
-//                servo_RightMotor.writeMicroseconds(1500);
-//                delay (3000);
-//                Serial.println("Pause");
-//                servo_LeftMotor.writeMicroseconds(1500);
-//                servo_RightMotor.writeMicroseconds(1650);
-//                run_Step++;
-//              }
-//            break;
-//
-//          case 2:
-//            Serial.println("Case2");
-//            servo_LeftMotor.writeMicroseconds(1500);
-//            servo_RightMotor.writeMicroseconds(1650);
-//            Serial.println("Turning left");
-//            if (ui_Middle_Line_Tracker_Data < ((ui_Middle_Line_Tracker_Dark - ui_Line_Tracker_Tolerance))&& !(ui_Left_Line_Tracker_Data < (ui_Left_Line_Tracker_Dark - ui_Line_Tracker_Tolerance)) && !(ui_Right_Line_Tracker_Data < (ui_Right_Line_Tracker_Dark - ui_Line_Tracker_Tolerance)))
-//              {
-//                servo_LeftMotor.writeMicroseconds(1500);
-//                servo_RightMotor.writeMicroseconds(1500);
-//                delay (3000);
-//                Serial.println("Pause");
-//                run_Step++;
-//              }
-//            break;
-
           case 1:
             Serial.println("Case1");
             if (start)
@@ -364,14 +332,14 @@ void loop()
             }
             else if (ui_Left_Line_Tracker_Data < (ui_Left_Line_Tracker_Dark - ui_Line_Tracker_Tolerance))
             {
-              servo_LeftMotor.writeMicroseconds(1500);
-              servo_RightMotor.writeMicroseconds(1650);
+              servo_LeftMotor.writeMicroseconds(1650);
+              servo_RightMotor.writeMicroseconds(1800);
               Serial.println("Turning left");
             }
             else if (ui_Right_Line_Tracker_Data < (ui_Right_Line_Tracker_Dark - ui_Line_Tracker_Tolerance))
             {
-              servo_LeftMotor.writeMicroseconds(1650);
-              servo_RightMotor.writeMicroseconds(1500);
+              servo_LeftMotor.writeMicroseconds(1800);
+              servo_RightMotor.writeMicroseconds(1650);
               Serial.println("Turning right");
             }
             else //if (ci_Middle_Line_Tracker_LED == HIGH && ci_Left_Line_Tracker_LED == HIGH && ci_Right_Line_Tracker_LED == HIGH)
@@ -395,6 +363,8 @@ void loop()
             servo_RightMotor.writeMicroseconds(1650);
             Serial.println("Turning left");
             Serial.println(millis());
+            if ((millis() - run_Time) > 3000)
+            {
              if (!(ui_Middle_Line_Tracker_Data < (ui_Middle_Line_Tracker_Dark - ui_Line_Tracker_Tolerance)) && (ui_Left_Line_Tracker_Data < (ui_Left_Line_Tracker_Dark - ui_Line_Tracker_Tolerance)) && !(ui_Right_Line_Tracker_Data < (ui_Right_Line_Tracker_Dark - ui_Line_Tracker_Tolerance)))
                {
                  servo_LeftMotor.writeMicroseconds(1500);
@@ -404,6 +374,7 @@ void loop()
                  start = 1;
                  run_Step++;
                }
+            }
             break;
 
           case 4:
@@ -416,14 +387,14 @@ void loop()
             }
             else if (ui_Left_Line_Tracker_Data < (ui_Left_Line_Tracker_Dark - ui_Line_Tracker_Tolerance))
             {
-              servo_LeftMotor.writeMicroseconds(1500);
-              servo_RightMotor.writeMicroseconds(1650);
+              servo_LeftMotor.writeMicroseconds(1650);
+              servo_RightMotor.writeMicroseconds(1800);
               Serial.println("Turning left");
             }
             else if (ui_Right_Line_Tracker_Data < (ui_Right_Line_Tracker_Dark - ui_Line_Tracker_Tolerance))
             {
-              servo_LeftMotor.writeMicroseconds(1650);
-              servo_RightMotor.writeMicroseconds(1500);
+              servo_LeftMotor.writeMicroseconds(1800);
+              servo_RightMotor.writeMicroseconds(1650);
               Serial.println("Turning right");
             }
             else //if (ci_Middle_Line_Tracker_LED == HIGH && ci_Left_Line_Tracker_LED == HIGH && ci_Right_Line_Tracker_LED == HIGH)
@@ -432,42 +403,61 @@ void loop()
               servo_RightMotor.writeMicroseconds(1500);
               Serial.println("Stopping"); 
               run_Step++;
+            }
+            break;
+          
+          case 5:
+            Serial.println("Case5");
+            if (start)
+            {
+              run_Time = millis();
+              Serial.println(run_Time);
+              start = 0;
+            }
+            servo_LeftMotor.writeMicroseconds(1350);
+            servo_RightMotor.writeMicroseconds(1350);
+            Serial.println("backing up");
+            Serial.println(millis());
+            if ((millis() - run_Time) > 1000)
+            {
+               servo_LeftMotor.writeMicroseconds(1500);
+               servo_RightMotor.writeMicroseconds(1500);
+               delay (3000);
+               Serial.println("Pause");
+               start = 1;
+               run_Step++;
+               }
             }
             break;
 
           case 6:
             Serial.println("Case6");
-            servo_LeftMotor.writeMicroseconds(1700);
-            servo_RightMotor.writeMicroseconds(1500);
-            Serial.println("Turning right");
-            if (ui_Middle_Line_Tracker_Data < ((ui_Middle_Line_Tracker_Dark - ui_Line_Tracker_Tolerance))&& !(ui_Left_Line_Tracker_Data < (ui_Left_Line_Tracker_Dark - ui_Line_Tracker_Tolerance)) && !(ui_Right_Line_Tracker_Data < (ui_Right_Line_Tracker_Dark - ui_Line_Tracker_Tolerance)))
-              {
-                servo_LeftMotor.writeMicroseconds(1500);
-                servo_RightMotor.writeMicroseconds(1500);
-                delay (3000);
-                Serial.println("Pause");
-                servo_LeftMotor.writeMicroseconds(1700);
-                servo_RightMotor.writeMicroseconds(1500);
-                run_Step++;
-              }
-            break;
-
-          case 7:
-            Serial.println("Case7");
+            if (start)
+            {
+              run_Time = millis();
+              Serial.println(run_Time);
+              start = 0;
+            }
             servo_LeftMotor.writeMicroseconds(1650);
             servo_RightMotor.writeMicroseconds(1500);
             Serial.println("Turning right");
-            if (ui_Middle_Line_Tracker_Data < ((ui_Middle_Line_Tracker_Dark - ui_Line_Tracker_Tolerance))&& !(ui_Left_Line_Tracker_Data < (ui_Left_Line_Tracker_Dark - ui_Line_Tracker_Tolerance)) && !(ui_Right_Line_Tracker_Data < (ui_Right_Line_Tracker_Dark - ui_Line_Tracker_Tolerance)))
-              {
-                servo_LeftMotor.writeMicroseconds(1500);
-                servo_RightMotor.writeMicroseconds(1500);
-                delay (3000);
-                Serial.println("Pause");
-                run_Step++;
-              }
-
-          case 8:
-            Serial.println("Case8");
+            Serial.println(millis());
+            if ((millis() - run_Time) > 3000)
+            {
+             if (!(ui_Middle_Line_Tracker_Data < (ui_Middle_Line_Tracker_Dark - ui_Line_Tracker_Tolerance)) && !(ui_Left_Line_Tracker_Data < (ui_Left_Line_Tracker_Dark - ui_Line_Tracker_Tolerance)) && (ui_Right_Line_Tracker_Data < (ui_Right_Line_Tracker_Dark - ui_Line_Tracker_Tolerance)))
+               {
+                 servo_LeftMotor.writeMicroseconds(1500);
+                 servo_RightMotor.writeMicroseconds(1500);
+                 delay (3000);
+                 Serial.println("Pause");
+                 start = 1;
+                 run_Step++;
+               }
+            }
+            break;
+       
+          case 7:
+            Serial.println("Case7");
             if (ui_Middle_Line_Tracker_Data < (ui_Middle_Line_Tracker_Dark - ui_Line_Tracker_Tolerance))
             {
               servo_LeftMotor.writeMicroseconds(1650);
@@ -476,14 +466,14 @@ void loop()
             }
             else if (ui_Left_Line_Tracker_Data < (ui_Left_Line_Tracker_Dark - ui_Line_Tracker_Tolerance))
             {
-              servo_LeftMotor.writeMicroseconds(1500);
-              servo_RightMotor.writeMicroseconds(1650);
+              servo_LeftMotor.writeMicroseconds(1650);
+              servo_RightMotor.writeMicroseconds(1800);
               Serial.println("Turning left");
             }
             else if (ui_Right_Line_Tracker_Data < (ui_Right_Line_Tracker_Dark - ui_Line_Tracker_Tolerance))
             {
-              servo_LeftMotor.writeMicroseconds(1650);
-              servo_RightMotor.writeMicroseconds(1500);
+              servo_LeftMotor.writeMicroseconds(1800);
+              servo_RightMotor.writeMicroseconds(1650);
               Serial.println("Turning right");
             }
             else //if (ci_Middle_Line_Tracker_LED == HIGH && ci_Left_Line_Tracker_LED == HIGH && ci_Right_Line_Tracker_LED == HIGH)
@@ -494,63 +484,10 @@ void loop()
               run_Step++;
             }
             break;
-
-          case 9:
-          Serial.println("Case2");
-            servo_LeftMotor.writeMicroseconds(1500);
-            servo_RightMotor.writeMicroseconds(1650);
-            Serial.println("Turning right");
-              if (ui_Middle_Line_Tracker_Data < ((ui_Middle_Line_Tracker_Dark - ui_Line_Tracker_Tolerance))&& !(ui_Left_Line_Tracker_Data < (ui_Left_Line_Tracker_Dark - ui_Line_Tracker_Tolerance)) && !(ui_Right_Line_Tracker_Data < (ui_Right_Line_Tracker_Dark - ui_Line_Tracker_Tolerance)))
-              {
-                servo_LeftMotor.writeMicroseconds(1500);
-                servo_RightMotor.writeMicroseconds(1500);
-                delay (3000);
-                Serial.println("Pause");
-                run_Step++;
-              }
-              break;
-
-          case 10:
-          Serial.println("Case3");
-          servo_LeftMotor.writeMicroseconds(1500);
-          servo_RightMotor.writeMicroseconds(1650);
-          if (ui_Middle_Line_Tracker_Data < ((ui_Middle_Line_Tracker_Dark - ui_Line_Tracker_Tolerance))&& !(ui_Left_Line_Tracker_Data < (ui_Left_Line_Tracker_Dark - ui_Line_Tracker_Tolerance)) && !(ui_Right_Line_Tracker_Data < (ui_Right_Line_Tracker_Dark - ui_Line_Tracker_Tolerance)))
-              {
-                servo_LeftMotor.writeMicroseconds(1500);
-                servo_RightMotor.writeMicroseconds(1500);
-                delay (3000);
-                Serial.println("Pause");
-                run_Step++;
-              }
-              break;
+       
+         case 8:
+       //use ultrasonic sensor to find light source
           
-          case 11:
-            if (ui_Middle_Line_Tracker_Data < (ui_Middle_Line_Tracker_Dark - ui_Line_Tracker_Tolerance))
-            {
-              servo_LeftMotor.writeMicroseconds(1600);
-              servo_RightMotor.writeMicroseconds(1600);
-              Serial.println("Driving straight");
-            }
-            else if (ui_Left_Line_Tracker_Data < (ui_Left_Line_Tracker_Dark - ui_Line_Tracker_Tolerance))
-            {
-              servo_LeftMotor.writeMicroseconds(1500);
-              servo_RightMotor.writeMicroseconds(1650);
-              Serial.println("Turning left");
-            }
-            else if (ui_Right_Line_Tracker_Data < (ui_Right_Line_Tracker_Dark - ui_Line_Tracker_Tolerance))
-            {
-              servo_LeftMotor.writeMicroseconds(1650);
-              servo_RightMotor.writeMicroseconds(1500);
-              Serial.println("Turning right");
-            }
-            else //if (ci_Middle_Line_Tracker_LED == HIGH && ci_Left_Line_Tracker_LED == HIGH && ci_Right_Line_Tracker_LED == HIGH)
-            {
-              servo_LeftMotor.writeMicroseconds(1500);
-              servo_RightMotor.writeMicroseconds(1500);
-              Serial.println("Stopping"); 
-              //run_Step++;
-            }
-            break;
 
          }
        
